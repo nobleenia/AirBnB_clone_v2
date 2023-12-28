@@ -35,20 +35,23 @@ class Place(BaseModel, Base):
         @property
         def reviews(self):
             """ Returns list of reviews.id """
-            review_instances = []
-            for review in storage.all(Review).values():
-                if review.place_id == self.id:
-                    review_instances.append(review)
-            return review_instances
+            var = models.storage.all()
+            list_argsa = []
+            result = []
+            for key in var:
+                review = key.replace('.', ' ')
+                review = shlex.split(review)
+                if (review[0] == 'Review'):
+                    list_args.append(var[key])
+            for item in list_args:
+                if (item.place_id == self.id):
+                    result.append(item)
+            return (result)
 
         @property
         def amenities(self):
             """ Returns the amenities list """
-            list_amenities = []
-            for amenity in storage.all(Amenity).values():
-                if amenity.id in self.amenity_ids:
-                    list_amenities.append(amenity)
-            return list_amenities
+            return self.amenity_ids
 
         @amenities.setter
         def amenities(self, obj=None):
