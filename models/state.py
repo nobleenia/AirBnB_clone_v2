@@ -6,6 +6,8 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 import models
+import shlex
+
 
 class State(BaseModel, Base):
     """ State class """
@@ -17,12 +19,15 @@ class State(BaseModel, Base):
     def cities(self):
         """ Getter attribute that returns the list of City instances
                with state_id equals to the current State.id"""
-        cities_list = []
-        stored_data = storage.all(City).items()
-        for city_id, city in stored_data:
-            try:
-                if city.state_id == self.id:
-                    cities_list.append(city)
-            except Exception:
-                pass
-        return cities_list
+        var = models.storage.all()
+        lista = []
+        result = []
+        for key in var:
+            city = key.replace('.', ' ')
+            city = shlex.split(city)
+            if (city[0] == 'City'):
+                lista.append(var[key])
+        for elem in lista:
+            if (elem.state_id == self.id):
+                result.append(elem)
+        return (result)
