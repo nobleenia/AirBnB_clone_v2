@@ -27,7 +27,7 @@ class DBStorage:
         db = getenv("HBNB_MYSQL_DB")
 
         # Create an engine and connect to the database
-        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(usr, passwrd, host, db), pool_pre_ping=True)
+        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(user, passwrd, host, db), pool_pre_ping=True)
         # Drop all tables if the environment variable HBNB_ENV is equal to test
         if getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
