@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 Handles the database storage and interactions (ORM) using SQLAlchemy """
-from sqlalchemy import create_engine
+from sqlalchemy import (create_engine)
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import Base
@@ -68,3 +68,9 @@ class DBStorage:
         """ Create all tables in the database and create the current database session """
         Base.metadata.create_all(self.__engine)
         self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
+
+    def close(self):
+        """ 
+        Calls remove()
+        """
+        self.__session.close()
