@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 Handles the database storage and interactions (ORM) using SQLAlchemy """
-from sqlalchemy import create_engine
+from sqlalchemy import (create_engine)
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import Base
@@ -25,11 +25,12 @@ class DBStorage:
         passwrd = getenv("HBNB_MYSQL_PWD")
         host = getenv("HBNB_MYSQL_HOST")
         db = getenv("HBNB_MYSQL_DB")
+        env = getenv("HBNB_ENV")
 
         # Create an engine and connect to the database
-        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(usr, passwrd, host, db), pool_pre_ping=True)
+        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(user, passwrd, host, db), pool_pre_ping=True)
         # Drop all tables if the environment variable HBNB_ENV is equal to test
-        if getenv("HBNB_ENV") == "test":
+        if env == "test":
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
@@ -67,4 +68,12 @@ class DBStorage:
     def reload(self):
         """ Create all tables in the database and create the current database session """
         Base.metadata.create_all(self.__engine)
-        self.__session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
+        sec = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(sec)
+        self.__session = Session()
+
+    def close(self):
+        """ 
+        Calls remove()
+        """
+        self.__session.close()
