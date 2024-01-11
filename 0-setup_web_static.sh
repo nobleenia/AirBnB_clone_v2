@@ -29,8 +29,7 @@ sudo chown -R ubuntu /data
 sudo chgrp -R ubuntu /data
 
 # Update the Nginx configuration to serve /data/web_static/current/
-sudo sed -i '/listen 80 default_server/a location /hbnb_static 
-     { alias /data/web_static/current/;}' /etc/nginx/sites-enabled/default
+sudo sed -i '/listen 80 default_server/a location /hbnb_static { alias /data/web_static/current/;}' /etc/nginx/sites-enabled/default
 
 # Restart nginx server
 sudo service nginx restart
