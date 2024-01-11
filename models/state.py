@@ -20,14 +20,14 @@ class State(BaseModel, Base):
         """ Getter attribute that returns the list of City instances
                with state_id equals to the current State.id"""
         var = models.storage.all()
-        lista = []
+        list_args = []
         result = []
         for key in var:
             city = key.replace('.', ' ')
             city = shlex.split(city)
             if (city[0] == 'City'):
-                lista.append(var[key])
-        for elem in lista:
+                list_args.append(var[key])
+        for elem in list_args:
             if (elem.state_id == self.id):
                 result.append(elem)
         return (result)

@@ -36,7 +36,7 @@ class Place(BaseModel, Base):
         def reviews(self):
             """ Returns list of reviews.id """
             var = models.storage.all()
-            list_argsa = []
+            list_args = []
             result = []
             for key in var:
                 review = key.replace('.', ' ')
