@@ -18,7 +18,7 @@ sudo mkdir -p /data/web_static/releases/test/
 
 # Create a fake HTML file /data/web_static/releases/test/index.html
 # (with simple content, to test your Nginx configuration)
-sudo echo "Noble Eluwah" > /data/web_static/releases/test/index.html
+echo "Noble Eluwah" | sudo tee /data/web_static/releases/test/index.html
 
 # Create a symbolic link /data/web_static/current
 # linked to the /data/web_static/releases/test/ folder
