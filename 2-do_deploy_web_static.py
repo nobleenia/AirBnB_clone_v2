@@ -39,7 +39,9 @@ def do_deploy(archive_path):
         # Upload the archive to the /tmp/ directory of the web server
         put(archive_path, "/tmp/")
 
-        # Uncompress the archive to the folder /data/web_static/releases/<archive filename without extension> on the web server
+        # Uncompress the archive to the folder
+        # /data/web_static/releases/<archive
+        # filename without extension> on the web server
         run("sudo mkdir -p {}".format(newest_version))
         run("sudo tar -xzf {} -C {}/".format(archived_file,
                                              newest_version))
@@ -53,8 +55,9 @@ def do_deploy(archive_path):
         # Delete the symbolic link /data/web_static/current from the web server
         run("sudo rm -rf /data/web_static/current")
 
-        # Create a new the symbolic link /data/web_static/current on the web server
-        # linked to the new version of your code (/data/web_static/releases/<archive filename without extension>)
+        # Create a new the symbolic link /data/web_static/current
+        # on the web server linked to the new version of your code
+        # (/data/web_static/releases/<archive filename without extension>)
         run("sudo ln -s {} /data/web_static/current".format(newest_version))
 
         print("New version deployed!")
