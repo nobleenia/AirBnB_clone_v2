@@ -2,7 +2,8 @@
 """
 Handles the database storage and interactions (ORM) using SQLAlchemy """
 from sqlalchemy import (create_engine)
-from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import Base
 from models.state import State
@@ -76,4 +77,4 @@ class DBStorage:
         """ 
         Calls remove()
         """
-        self.__session.remove()
+        self.__session.close()
