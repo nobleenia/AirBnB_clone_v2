@@ -3,6 +3,7 @@
 A script that starts a Flask web application
 """
 from flask import Flask
+from models.state import State
 from flask import render_template
 from models import storage
 app = Flask(__name__)
@@ -13,11 +14,11 @@ def cities_by_states():
     """
     display a HTML page: (inside the tag BODY)
     """
-    states = storage.all("State")
-    return render_template("8-states_list.html", states=states)
+    states = storage.all(State)
+    return render_template("8-cities_by_states.html", states=states)
 
 @app.teardown_appcontext
-def teardown(exc):
+def teardown(arg=None):
     """
     Remove the current SQLAlchemy session
     """
