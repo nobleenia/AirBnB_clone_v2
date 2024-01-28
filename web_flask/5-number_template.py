@@ -3,24 +3,26 @@
 A script that starts a Flask web application
 """
 
-
 from flask import Flask
 from flask import render_template
 app = Flask(__name__)
 
+
 @app.route("/", strict_slashes=False)
 def hello_route():
     """
-    display: 'Hello HBNB!'
+    display 'Hello HBNB!'
     """
     return "Hello HBNB!"
+
 
 @app.route("/hbnb", strict_slashes=False)
 def hbnb():
     """
-    display: 'HBNB'
+    display 'HBNB'
     """
     return "HBNB"
+
 
 @app.route("/c/<text>", strict_slashes=False)
 def c_is_fun(text):
@@ -29,6 +31,7 @@ def c_is_fun(text):
     """
     text = text.replace("_", " ")
     return "C {}".format(text)
+
 
 @app.route("/python", strict_slashes=False)
 @app.route("/python/<text>", strict_slashes=False)
@@ -39,12 +42,14 @@ def python_is_fun(text="is cool"):
     text = text.replace("_", " ")
     return "Python {}".format(text)
 
+
 @app.route("/number/<int:n>", strict_slashes=False)
 def number(n):
     """
     display 'n is a number'
     """
-    return  "{} is a number".format(n)
+    return "{} is a number".format(n)
+
 
 @app.route("/number_template/<int:n>", strict_slashes=False)
 def number_template(n):
