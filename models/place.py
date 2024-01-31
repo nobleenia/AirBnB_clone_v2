@@ -2,7 +2,7 @@
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
 from sqlalchemy import Table, Column, Integer, Float, String, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 from os import getenv
 import models
@@ -51,7 +51,12 @@ class Place(BaseModel, Base):
         @property
         def amenities(self):
             """ Returns the amenities list """
-            return self.amenity_ids
+            all_amenities = models.storage.all(Amenity)
+            place_amenities = []
+            for amenity_ins in all_amenities.values():
+                if amenity_ins.place_id == self.id:
+                    place_amenities.append(amenity_ins)
+            return place_amenities
 
         @amenities.setter
         def amenities(self, obj=None):
